@@ -1,30 +1,5 @@
-function renderNode(node) {
-    const element = document.createElement(node.type)
-
-    if (node.props) {
-        for (const prop of Object.keys(node.props)) {
-            element.setAttribute(prop, node.props[prop])
-        }
-    }
-
-    if (node.children) {
-        for (const child of node.children) {
-            let childElement
-            if (typeof child === "string") {
-                childElement = document.createTextNode(child)
-            } else {
-                childElement = renderNode(child)
-            }
-            element.appendChild(childElement)
-        }
-    }
-    return element
-}
-
 // If type of parent container is different, we need to replace the whole dom
 // Track which props - a. have been updated, b. are to be removed
-
-
 function diff(oldDom, newDom) {
     if (oldDom.type !== newDom.type) {
         return { type: 'REPLACE' }
@@ -65,4 +40,5 @@ function diff(oldDom, newDom) {
     return { type: 'UPDATE', props: propsDiff, children: childDiffs }
 }
 
-export { renderNode }
+
+export { diff }
