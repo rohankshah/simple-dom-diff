@@ -1,15 +1,10 @@
-const express = require('express');
-const path = require('path');
+import { renderNode } from "./dom.service";
+import { virtualDOM } from "./domObjects";
 
-const app = express();
-const PORT = 3000;
+document.addEventListener("DOMContentLoaded", (event) => {
+    
+   const root = document.getElementById("root")
+   const renderedDom =  renderNode(virtualDOM)
+   root.appendChild(renderedDom)
 
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/', (_, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running at port:${PORT}`);
 });
